@@ -3,7 +3,7 @@
  * */
 
 public class HelloWorld {
-    public static voice main(String[] args) {
+    public static void main(String[] args) {
         if (args != null) {
 	    System.out.println("there is no args input by user");
 	} else {
