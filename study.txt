@@ -1,0 +1,153 @@
+1. 如何创建一个 branch:
+----------------------------------------------------------------------------------
+a> git branch new-branch
+b> git checkout -b new-branch // 如果没有 new-branch, 则创建 new-branch; 并且切到 new-branch.
+
+
+2. 如何切换分支
+----------------------------------------------------------------------------------
+a> git checkout branch
+
+
+3. 如何添加/删除一个文件
+----------------------------------------------------------------------------------
+a> git add/rm . or filepath // 添加所有或者指定文件
+b> git commit -m "add or remove file"
+
+
+4. 如何提交修改到本地仓库
+----------------------------------------------------------------------------------
+a> git commit . or filepath -m "modification note"
+
+
+5. 如何回退 commit 之后的修改文件
+----------------------------------------------------------------------------------
+a> git reset HEAD^ filepath // 回退到上一次提交, 且保留修改; git diff 可以查看修改内容.
+b> git reset HEAD^^ filepath // 回退到上上次提交, 且保留修改
+c> git reset HEAD~n filepath // 回退到n次提交, 且保留修改
+d> git reset --hard HEAD^ // 回退到n次提交, 且不保留修改. 
+
+
+6. 查看文件状态
+----------------------------------------------------------------------------------
+a> git status . or filepath
+
+
+7. 如何查询修改对应的版本号
+----------------------------------------------------------------------------------
+git reflog
+
+
+8. 如何撤销已 add 的文件:
+----------------------------------------------------------------------------------
+git reset HEAD . or filepath
+
+
+9. 提交至远程仓库时可以使用 --rebase 参数合并 branch.
+----------------------------------------------------------------------------------
+git pull --rebase
+
+
+10. 如何 merge 两个 branch
+----------------------------------------------------------------------------------
+git merge --no-ff -m "merge another-branch-name" another-branch-name.
+ex: the current branch is master; another branch is test
+git merge --no-ff -m "merge test branch" test // 用git log --graph命令可以看到分支合并图
+
+
+11. 如何删除一个指定的 branch
+----------------------------------------------------------------------------------
+git branch -d branch-name.
+
+
+12. 如何查看修改记录
+----------------------------------------------------------------------------------
+git log // 查看当前 repo 下的所有修改记录;
+git log --pretty=oneline // 查看当前 repo 下的所有修改; 但仅显示 commit id 和提交的 message 备注.
+git log --abbrev-commit // 查看当前 repo 下的所有修改; 但不显示完整 commit id; 
+                           而是简短的 commit id, 即版本号.
+git log --pretty=oneline --abbrev-commit
+
+
+13. 如果通过 git reset --hard HEAD^ 回退到前一版本, 后悔了怎么办
+----------------------------------------------------------------------------------
+1. 通过 git reflog 查看所有的 commit id; 并找到回退之前的 commit id
+2. 然后执行: git reset --hard commitid; 搞定.
+
+
+14.  如何撤销上一次修改
+----------------------------------------------------------------------------------
+1. git checkout -- filepath // "--" 参数很重要, 没有就变成了切换分支.
+
+
+15. 在 github 上面创建一个 new repository 之后; 如何创建新仓库.
+----------------------------------------------------------------------------------
+…or create a new repository on the command line
+-----------------------------------------------------------------
+echo "# learngit" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/18576670812/learngit.git
+git push -u origin master
+
+
+…or push an existing repository from the command line
+-----------------------------------------------------------------
+git remote add origin https://github.com/18576670812/learngit.git
+git push -u origin master
+
+
+git remote add origin git@github.com:1857667012/learngit.git
+
+
+16. 要关联一个远程库，使用命令
+----------------------------------------------------------------------------------
+git remote add origin git@server-name/repo-name.git
+git remote add origin git@server-name:path/repo-name.git
+
+ex: git remote add origin https://github.com/18576670812/gitlearn.git
+
+
+17. 如何 clone 一个远程仓库.
+----------------------------------------------------------------------------------
+git clone remote-repo-uri.
+ex: git clone https://github.com/18576670812/githubremote.git
+    git clone git@github.com:18576670812/githubremote.git
+
+查看远程库信息，使用git remote -v；
+本地新建的分支如果不推送到远程，对其他人就是不可见的；
+从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+
+
+18. 如何添加/删除 TAG
+----------------------------------------------------------------------------
+git tag <name> // 这种方式打在最新的提交上面
+git tag <name> <commit id> // 这种方式打在指定的 commit id
+git tag // 遍历所有在当前 branch 打上的 TAG
+git show <tagname>  // 这种方式显示当前 tag 对应的提交.
+git tag -a <tagname> -m "blablabla..." // 这种方式可以指定标签信息. 仅限新增 TAG 可用.
+git tag -d <tagname> // 删除指定的 tagname.
+
+
+19. 如何将标签推送到远程仓库.
+------------------------------------------------------------------------------------------
+git push origin <tagname> // 推送指定标签到远程仓库
+git push origin --tags // 一次性推送全部尚未推送到远程的本地标签
+
+
+20. 如何删除远程仓库标签.
+------------------------------------------------------------------------------------------
+1. git tag -d <tag> // 先删除本地标签. ex: git tag -d V1.0
+2. git push origin :refs/tags/<tag> // 然后 push 到远程仓库. ex: git push origin :refs/tag/V1.0
+
+
+21. 如何在当前文件夹下创建版本库.
+------------------------------------------------------------------------------------------
+git init
+
+
+
